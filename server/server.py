@@ -36,10 +36,10 @@ def main():
             while True:
                 client, clientInfo = s.accept()
                 print("server recv from: ", clientInfo)
-                data = client.recv(1024);      # receive 1024 Bytes of message in binary format
+                #data = client.recv(1024);      # receive 1024 Bytes of message in binary format
 
                 print(sensor.GSR)
-                client.sendall(sensor.GSR.encode())
+                client.sendall(bytes(str(sensor.GSR), 'utf8'))
                 time.sleep(.3)
                 client.close()
         except Exception as e:
