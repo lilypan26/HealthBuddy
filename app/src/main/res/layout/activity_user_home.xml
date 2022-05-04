@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/baige"
+    android:layout_gravity="center_horizontal">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_marginTop="80dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:gravity="start"
+        android:src="@drawable/logo" />
+
+    <EditText
+        android:id="@+id/app_name"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:background="@null"
+        android:cursorVisible="false"
+        android:ems="10"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:inputType="textMultiLine"
+        android:text="Welcome!"
+        android:textAlignment="textStart"
+        android:textSize="50sp" />
+
+    <EditText
+        android:id="@+id/app_prompt"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="225dp"
+        android:background="@null"
+        android:cursorVisible="false"
+        android:ems="8"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:inputType="textMultiLine"
+        android:text="Track Your Hydration Levels."
+        android:textAlignment="textStart"
+        android:textSize="20sp" />
+
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/graph"
+        android:layout_width="375dp"
+        android:layout_height="220dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="300dp"
+        android:gravity="center"/>
+
+
+</RelativeLayout>
