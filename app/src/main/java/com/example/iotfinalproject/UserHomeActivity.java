@@ -2,6 +2,8 @@ package com.example.iotfinalproject;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,8 +14,24 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+
 
 public class UserHomeActivity extends AppCompatActivity {
+    private TextView gsr_value = null;
+    private Handler handler = new Handler();
+    private Runnable runnable;
+    private int delay = 1000; //One second = 1000 milliseconds.
+    private int val = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +39,8 @@ public class UserHomeActivity extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
+
+        gsr_value = (TextView) findViewById (R.id.gsr_value);
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
         initGraph(graph);
@@ -58,5 +78,55 @@ public class UserHomeActivity extends AppCompatActivity {
 
     }
 
+    public void getGSRValue() {
+        val += 1;
+        String response = String.valueOf(val);
+        runOnUiThread(new Thread(new Runnable() {
+            public void run() {
+                gsr_value.setText("Current GSR Value: " + response);
+            }
+        }));
+//        try {
+//            Socket s = new Socket("192.168.1.126", 65432);
+//            BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+//            String response = in.readLine();
+//            response = String.valueOf(i);
+//            runOnUiThread(new Thread(new Runnable() {
+//                public void run() {
+//                    gsr_value.setText("Current GSR Value: " + response);
+//                }
+//            }));
+//
+//            s.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    @Override
+    protected void onResume() {
+        //start handler as activity become visible
+
+        handler.postDelayed( runnable = new Runnable() {
+            public void run() {
+                Executors.newSingleThreadExecutor().execute(new Runnable() {
+                    public void run() {
+                        getGSRValue();
+                    }
+                });
+
+                handler.postDelayed(runnable, delay);
+            }
+        }, delay);
+
+        super.onResume();
+    }
+
+    // If onPause() is not included the threads will double up when you reload the activity
+    @Override
+    protected void onPause() {
+        handler.removeCallbacks(runnable); //stop handler when activity not visible
+        super.onPause();
+    }
 }
 

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">IOT Final Project</string>
+    <string name="gsr_value">Current GSR Value: 512</string>
 </resources>
