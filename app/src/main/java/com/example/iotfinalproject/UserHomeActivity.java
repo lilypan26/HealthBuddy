@@ -1,8 +1,11 @@
 package com.example.iotfinalproject;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +17,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
@@ -25,12 +29,16 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 
-public class UserHomeActivity extends AppCompatActivity {
+public class UserHomeActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView gsr_value = null;
     private Handler handler = new Handler();
     private Runnable runnable;
     private int delay = 1000; //One second = 1000 milliseconds.
     private int val = 0;
+    private List<Integer> datapoints = new ArrayList<>();
+    private GraphView graph;
+    private List<Integer> lookback = new ArrayList<>();
+    private int numDataPoints = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,34 +48,44 @@ public class UserHomeActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
+        Button refresh_button = findViewById(R.id.refresh);
+        refresh_button.setOnClickListener(this);
+
         gsr_value = (TextView) findViewById (R.id.gsr_value);
 
-        GraphView graph = (GraphView) findViewById(R.id.graph);
+        graph = (GraphView) findViewById(R.id.graph);
         initGraph(graph);
     }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+
+            case R.id.refresh:
+                graph.removeAllSeries();
+                lookback = datapoints.subList(Math.max(datapoints.size() - numDataPoints, 0), datapoints.size());
+                initGraph(graph);
+                break;
+        }
+    }
+
     public void initGraph(GraphView graph) {
-        int numDataPoints = 0;
+        ArrayList<DataPoint> dataPoints = new ArrayList<>();
+        for (int i = 0; i < lookback.size(); i++) {
+            dataPoints.add(new DataPoint(i, lookback.get(i)));
+        }
+        DataPoint[] arr = new DataPoint[dataPoints.size()];
+        arr = dataPoints.toArray(arr);
 
-        PointsGraphSeries<DataPoint> series = new PointsGraphSeries<>();
-
-        series.setShape(PointsGraphSeries.Shape.POINT);
-//        int yMax = ((int)(series.getHighestValueY()+ 99) / 100 ) * 100 + 100;
-        series.setSize(10);
-        series.setTitle("Duration");
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(arr);
+        series.setColor(Color.BLUE);
+        series.setDrawDataPoints(true);
         graph.addSeries(series);
+//        series.setTitle("GSR Value");
 
-//        LineGraphSeries<DataPoint> series2 = new LineGraphSeries<>(new DataPoint[] {
-//                new DataPoint(0, 0),
-//                new DataPoint(Math.max(11, numDataPoints + 1), 0)
-//        });
-//        series2.setColor(Color.RED);
-//        graph.addSeries(series2);
-//        series2.setTitle("Average");
-
-
-        graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setMinY(0);
-        graph.getViewport().setMaxY(10);
+        graph.getViewport().setYAxisBoundsManual(false);
         graph.getLegendRenderer().setVisible(false);
 
         graph.getViewport().setXAxisBoundsManual(true);
@@ -80,6 +98,7 @@ public class UserHomeActivity extends AppCompatActivity {
 
     public void getGSRValue() {
         val += 1;
+        datapoints.add(val);
         String response = String.valueOf(val);
         runOnUiThread(new Thread(new Runnable() {
             public void run() {
@@ -114,7 +133,6 @@ public class UserHomeActivity extends AppCompatActivity {
                         getGSRValue();
                     }
                 });
-
                 handler.postDelayed(runnable, delay);
             }
         }, delay);

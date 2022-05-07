@@ -80,5 +80,19 @@
         android:text="@string/gsr_value"
         android:textSize="24sp" />
 
+    <Button
+        android:id="@+id/refresh"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:background="@color/blue_700"
+        android:backgroundTint="@color/blue_700"
+        android:text="Refresh"
+        android:textSize="10sp"
+        android:textAlignment="center"
+        app:backgroundTint="@null"
+        android:padding="2dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginStart="300dp" />
+
 
 </RelativeLayout>
