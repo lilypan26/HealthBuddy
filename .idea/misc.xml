@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/lilyl/CS437/finalproject/app/src/main/res/layout/activity_history.xml" value="0.16394927536231885" />
         <entry key="..\:/Users/lilyl/CS437/finalproject/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/lilyl/CS437/finalproject/app/src/main/res/layout/activity_user_home.xml" value="0.1" />
         <entry key="..\:/Users/lilyl/CS437/finalproject/app/src/main/res/layout/custom_toolbar.xml" value="0.16394927536231885" />
+        <entry key="..\:/Users/lilyl/CS437/finalproject/app/src/main/res/menu/overflow_menu.xml" value="0.20416666666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.182518115942029" />
       </map>
     </option>

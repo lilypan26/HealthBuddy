@@ -31,14 +31,13 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 
-public class UserHomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class UserHomeActivity extends OverflowMenuNavigator {
     private TextView gsr_value = null;
     private final Handler handler = new Handler();
     private Runnable runnable;
     private final int delay = 1000; //One second = 1000 milliseconds.
     private List<Integer> datapoints = new ArrayList<>();
     private GraphView graph;
-    private List<Integer> lookback = new ArrayList<>();
     private final int numDataPoints = 20;
 
     @Override
@@ -46,11 +45,7 @@ public class UserHomeActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_home);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(myToolbar);
-
-        Button refresh_button = findViewById(R.id.refresh);
-        refresh_button.setOnClickListener(this);
+        HomeNavigation.createHomeNavigation(this);
 
         gsr_value = (TextView) findViewById (R.id.gsr_value);
 
@@ -59,24 +54,10 @@ public class UserHomeActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public void onClick(View v) {
-
-        switch (v.getId()) {
-
-            case R.id.refresh:
-                graph.removeAllSeries();
-                lookback = datapoints.subList(Math.max(datapoints.size() - numDataPoints, 0), datapoints.size());
-                initGraph(graph);
-                break;
-        }
-    }
-
     public void initGraph(GraphView graph) {
         ArrayList<DataPoint> dataPoints = new ArrayList<>();
-        for (int i = 0; i < lookback.size(); i++) {
-            dataPoints.add(new DataPoint(i, lookback.get(i)));
+        for (int i = 0; i < datapoints.size(); i++) {
+            dataPoints.add(new DataPoint(i, datapoints.get(i)));
         }
         DataPoint[] arr = new DataPoint[dataPoints.size()];
         arr = dataPoints.toArray(arr);
@@ -92,7 +73,7 @@ public class UserHomeActivity extends AppCompatActivity implements View.OnClickL
 
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
-        graph.getViewport().setMaxX(Math.min(11, numDataPoints + 1));
+        graph.getViewport().setMaxX(Math.min(numDataPoints+1, numDataPoints + 2));
         graph.getViewport().setScrollable(true);
         graph.getGridLabelRenderer().setVerticalAxisTitle("GSR Value");
 
@@ -105,6 +86,8 @@ public class UserHomeActivity extends AppCompatActivity implements View.OnClickL
             String response = in.readLine();
             Log.i("gsr data:", response);
             datapoints.add(Integer.valueOf(response));
+            if (datapoints.size() > numDataPoints)
+                datapoints.remove(0);
             runOnUiThread(new Thread(new Runnable() {
                 public void run() {
                     gsr_value.setText("Current GSR Value: " + response);
@@ -125,8 +108,11 @@ public class UserHomeActivity extends AppCompatActivity implements View.OnClickL
                 Executors.newSingleThreadExecutor().execute(new Runnable() {
                     public void run() {
                         getGSRValue();
+
                     }
                 });
+                graph.removeAllSeries();
+                initGraph(graph);
                 handler.postDelayed(runnable, delay);
             }
         }, delay);
