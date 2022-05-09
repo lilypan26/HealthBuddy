@@ -18,7 +18,7 @@
         android:fontFamily="sans-serif-condensed-medium"
         android:gravity="left|center_horizontal"
         android:inputType="textMultiLine"
-        android:text="Have You Drinken Water Today?"
+        android:text="Did You Drink Water Today?"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="italic"
@@ -35,5 +35,7 @@
         android:src="@drawable/drink_water"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+
 
 </RelativeLayout>

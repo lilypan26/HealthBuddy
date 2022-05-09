@@ -1,7 +1,10 @@
 package com.example.iotfinalproject;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -11,6 +14,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -56,6 +61,31 @@ public class UserHomeActivity extends AppCompatActivity implements View.OnClickL
 
         graph = (GraphView) findViewById(R.id.graph);
         initGraph(graph);
+
+        Button notify_button = findViewById(R.id.notify);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("test_channel", "test_channel",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+
+            manager.createNotificationChannel(channel);
+        }
+
+        notify_button.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View view) {
+                     NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                             UserHomeActivity.this, "test_channel");
+                     builder.setContentTitle("Hydrate");
+                     builder.setContentText("Drink some water!");
+                     builder.setSmallIcon(R.drawable.drink_water);
+                     builder.setAutoCancel(true);
+
+                     NotificationManagerCompat managerCompat = NotificationManagerCompat.from(UserHomeActivity.this);
+                     managerCompat.notify(1, builder.build());
+                 }
+             }
+        );
 
     }
 
