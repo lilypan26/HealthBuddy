@@ -24,6 +24,10 @@
             android:name="com.example.iotfinalproject.UserHomeActivity"
             android:label="User Home">
         </activity>
+        <activity
+            android:name="com.example.iotfinalproject.HistoryActivity"
+            android:label="History">
+        </activity>
     </application>
 
 </manifest>
