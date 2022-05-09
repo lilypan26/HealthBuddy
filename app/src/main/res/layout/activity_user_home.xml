@@ -85,14 +85,25 @@
 
     <Button
         android:id="@+id/notify"
-        android:layout_width="80dp"
+        android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="650dp"
         android:background="@color/purple_200"
         android:backgroundTint="@color/blue_700"
         app:backgroundTint="@null"
-        android:text="Test Notification" />
+        android:text="Notify" />
+
+    <Button
+        android:id="@+id/aws"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="650dp"
+        android:background="@color/purple_200"
+        android:backgroundTint="@color/blue_700"
+        app:backgroundTint="@null"
+        android:text="AWS" />
 
 
 </RelativeLayout>
