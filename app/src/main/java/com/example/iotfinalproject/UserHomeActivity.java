@@ -17,7 +17,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.amazonaws.http.HttpMethodName;
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory;
+import com.amazonaws.mobileconnectors.apigateway.ApiRequest;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -36,8 +38,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import gsr_sensor_data_cs437.GsrdataClient;
-import gsr_sensor_data_cs437.model.Empty;
+import GsrDataID.GsrandroidClient;
+import GsrDataID.model.GsrData;
 
 
 public class UserHomeActivity extends OverflowMenuNavigator {
@@ -93,8 +95,16 @@ public class UserHomeActivity extends OverflowMenuNavigator {
             public void onClick(View view) {
                 ApiClientFactory factory = new ApiClientFactory();
 
-                final GsrdataClient client = factory.build(GsrdataClient.class);
-                Empty output = client.deviceIdGet("1");
+                final GsrandroidClient client = factory.build(GsrandroidClient.class);
+
+//                ApiRequest request = new ApiRequest(client.getClass().getSimpleName())
+//                        .withHttpMethod(HttpMethodName.GET)
+//                        .withPath("/gsr")
+//                        .addHeader("Content-Type", "application/x-www-form-urlencoded")
+//                        .addHeader("Content-Length", "2048");
+
+                GsrData output = client.gsrGet();
+
             }
         });
 
