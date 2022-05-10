@@ -20,10 +20,14 @@ import androidx.core.app.NotificationManagerCompat;
 import com.amazonaws.http.HttpMethodName;
 import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory;
 import com.amazonaws.mobileconnectors.apigateway.ApiRequest;
+import com.amazonaws.mobileconnectors.apigateway.ApiResponse;
+import com.google.gson.Gson;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
+
+import org.json.JSONObject;
 
 import java.io.DataOutputStream;
 import java.util.ArrayList;
@@ -40,6 +44,11 @@ import java.net.Socket;
 
 import GsrDataID.GsrandroidClient;
 import GsrDataID.model.GsrData;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 
 public class UserHomeActivity extends OverflowMenuNavigator {
@@ -93,17 +102,44 @@ public class UserHomeActivity extends OverflowMenuNavigator {
 
             @Override
             public void onClick(View view) {
-                ApiClientFactory factory = new ApiClientFactory();
 
-                final GsrandroidClient client = factory.build(GsrandroidClient.class);
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try  {
+                            OkHttpClient client = new OkHttpClient();
+                            Request request = new Request.Builder()
+                                    .url("https://6u341cmnni.execute-api.us-east-1.amazonaws.com/GsrData" + "/gsr")
+                                    .build();
 
-//                ApiRequest request = new ApiRequest(client.getClass().getSimpleName())
-//                        .withHttpMethod(HttpMethodName.GET)
-//                        .withPath("/gsr")
-//                        .addHeader("Content-Type", "application/x-www-form-urlencoded")
-//                        .addHeader("Content-Length", "2048");
+                            Call call = client.newCall(request);
+                            Response response = null;
+                            try {
+                                response = call.execute();
+                                System.out.println(response.body().string());
 
-                GsrData output = client.gsrGet();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+//                            ApiClientFactory factory = new ApiClientFactory();
+//                            final GsrandroidClient client = factory.credentialsProvider(null).build(GsrandroidClient.class);
+//
+//                            try {
+//                                GsrData output = client.gsrGet();
+//                                System.out.println(output.getGsrSensorTable());
+//
+//                            } catch (Exception e) {
+//                                System.out.println(e);
+//                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+                thread.start();
 
             }
         });
@@ -151,7 +187,7 @@ public class UserHomeActivity extends OverflowMenuNavigator {
             }));
             s.close();
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
 
     }
