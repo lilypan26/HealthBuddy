@@ -82,7 +82,9 @@ public class UserHomeActivity extends OverflowMenuNavigator {
     private boolean isRelaxed = false;
     private boolean isDehydrated = false;
 
-    private boolean notificationSuspended = false;
+    private boolean suspendHydrationNotification = false;
+    private boolean suspendHungerNotification = false;
+    private boolean suspendMoodNotification = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,30 +101,13 @@ public class UserHomeActivity extends OverflowMenuNavigator {
         graph = findViewById(R.id.graph);
         initGraph(graph);
 
-//        Button notify_button = findViewById(R.id.notify);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("test_channel", "test_channel",
+            NotificationChannel channel = new NotificationChannel("hydration_channel", "hydration_channel",
                     NotificationManager.IMPORTANCE_DEFAULT);
             NotificationManager manager = getSystemService(NotificationManager.class);
 
             manager.createNotificationChannel(channel);
         }
-//
-//        notify_button.setOnClickListener(new View.OnClickListener() {
-//                 @Override
-//                 public void onClick(View view) {
-//                     NotificationCompat.Builder builder = new NotificationCompat.Builder(
-//                             UserHomeActivity.this, "test_channel");
-//                     builder.setContentTitle("Hydrate");
-//                     builder.setContentText("Drink some water!");
-//                     builder.setSmallIcon(R.drawable.drink_water);
-//                     builder.setAutoCancel(true);
-//
-//                     NotificationManagerCompat managerCompat = NotificationManagerCompat.from(UserHomeActivity.this);
-//                     managerCompat.notify(1, builder.build());
-//                 }
-//             }
-//        );
 
 //        Button aws_button = findViewById(R.id.aws);
 //        aws_button.setOnClickListener(new View.OnClickListener() {
@@ -302,8 +287,75 @@ public class UserHomeActivity extends OverflowMenuNavigator {
                         String text = "Mood: Neutral";
 
                         mood_text.setText(text);
+                    }
+
+                    // Determine whether to send notification
+                    if (isDehydrated && !suspendHydrationNotification) {
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                         UserHomeActivity.this, "hydration_channel");
+                         builder.setContentTitle("Hydrate");
+                         builder.setContentText("You are likely dehydrated. Consider drinking some water");
+                         builder.setSmallIcon(R.drawable.drink_water);
+                         builder.setAutoCancel(true);
+
+                        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(UserHomeActivity.this);
+                        managerCompat.notify(1, builder.build());
+
+                        suspendHydrationNotification = true;
+
+                        new Timer().schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                suspendHydrationNotification = false;
+                            }
+                        }, 1000 * 60 * 15);     // 15 mins
 
                     }
+
+                    if (isHungry && !suspendHungerNotification) {
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                                UserHomeActivity.this, "hydration_channel");
+                        builder.setContentTitle("Eat");
+                        builder.setContentText("You are likely hungry. Consider eating some food");
+                        builder.setSmallIcon(R.drawable.drink_water);
+                        builder.setAutoCancel(true);
+
+                        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(UserHomeActivity.this);
+                        managerCompat.notify(1, builder.build());
+
+                        suspendHungerNotification = true;
+
+                        new Timer().schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                suspendHungerNotification = false;
+                            }
+                        }, 1000 * 60 * 15);     // 15 mins
+
+                    }
+
+                    if (isStressed && !suspendMoodNotification) {
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                                UserHomeActivity.this, "hydration_channel");
+                        builder.setContentTitle("Relax");
+                        builder.setContentText("You are likely stressed. Consider trying to relax");
+                        builder.setSmallIcon(R.drawable.drink_water);
+                        builder.setAutoCancel(true);
+
+                        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(UserHomeActivity.this);
+                        managerCompat.notify(1, builder.build());
+
+                        suspendMoodNotification = true;
+
+                        new Timer().schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                suspendMoodNotification = false;
+                            }
+                        }, 1000 * 60 * 15);     // 15 mins
+
+                    }
+
                 }
             }));
             s.close();
