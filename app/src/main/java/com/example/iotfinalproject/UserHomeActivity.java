@@ -14,6 +14,7 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.core.app.NotificationCompat;
@@ -93,6 +94,9 @@ public class UserHomeActivity extends OverflowMenuNavigator {
 
         HomeNavigation.createHomeNavigation(this);
 
+        ImageView home_icon = findViewById(R.id.home_icon);
+        home_icon.setVisibility(View.INVISIBLE);
+
         gsr_value = findViewById (R.id.gsr_value);
         dehydration_text = findViewById (R.id.dehydration_text);
         hunger_text = findViewById (R.id.hunger_text);
@@ -108,54 +112,6 @@ public class UserHomeActivity extends OverflowMenuNavigator {
 
             manager.createNotificationChannel(channel);
         }
-
-//        Button aws_button = findViewById(R.id.aws);
-//        aws_button.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//
-//                Thread thread = new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        try  {
-//                            OkHttpClient client = new OkHttpClient();
-//                            Request request = new Request.Builder()
-//                                    .url("https://6u341cmnni.execute-api.us-east-1.amazonaws.com/GsrData" + "/gsr")
-//                                    .build();
-//
-//                            Call call = client.newCall(request);
-//                            Response response = null;
-//                            try {
-//                                response = call.execute();
-//                                System.out.println(response.body().string());
-//
-//                            } catch (IOException e) {
-//                                e.printStackTrace();
-//                            }
-
-//                            ApiClientFactory factory = new ApiClientFactory();
-//                            final GsrandroidClient client = factory.credentialsProvider(null).build(GsrandroidClient.class);
-//
-//                            try {
-//                                GsrData output = client.gsrGet();
-//                                System.out.println(output.getGsrSensorTable());
-//
-//                            } catch (Exception e) {
-//                                System.out.println(e);
-//                            }
-
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                });
-//
-//                thread.start();
-//
-//            }
-//        });
-//
     }
 
     public void initGraph(GraphView graph) {
