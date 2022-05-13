@@ -45,7 +45,7 @@
         android:ems="8"
         android:fontFamily="sans-serif-condensed-medium"
         android:inputType="textMultiLine"
-        android:text="Track Your Hydration Levels."
+        android:text="Track Your Health Levels Below."
         android:textAlignment="textStart"
         android:textSize="20sp" />
 

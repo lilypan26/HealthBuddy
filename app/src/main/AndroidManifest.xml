@@ -22,7 +22,7 @@
         </activity>
         <activity
             android:name="com.example.iotfinalproject.UserHomeActivity"
-            android:label="User Home">
+            android:label="HealthBuddy">
         </activity>
         <activity
             android:name="com.example.iotfinalproject.HistoryActivity"

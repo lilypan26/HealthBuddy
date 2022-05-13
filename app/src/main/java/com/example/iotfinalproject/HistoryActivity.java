@@ -156,7 +156,6 @@ public class HistoryActivity extends OverflowMenuNavigator {
         series.setColor(Color.BLUE);
         series.setDrawDataPoints(true);
         graph.addSeries(series);
-//        series.setTitle("GSR Value");
         graph.getViewport().setYAxisBoundsManual(false);
         graph.getLegendRenderer().setVisible(false);
 
