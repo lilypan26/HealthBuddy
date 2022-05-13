@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">IOT Final Project</string>
     <string name="gsr_value">Current GSR Value: 512</string>
+    <string name="dehydration_text">Hydration: </string>
+    <string name="hunger_text">Hunger: </string>
+    <string name="mood_text">Mood: </string>
 </resources>
