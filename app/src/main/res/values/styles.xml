@@ -1,0 +1,5 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+<style name="MyTooltip" parent="Widget.MaterialComponents.Tooltip">
+    <item name="backgroundTint">@color/light_grey</item>
+</style>
+</resources>

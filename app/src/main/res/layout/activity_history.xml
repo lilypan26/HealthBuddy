@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="250dp"
+        app:labelStyle="@style/MyTooltip"
         app:values="@array/rangeSliderValues"
         android:valueFrom="0.0"
         android:valueTo="999.0"
