@@ -109,7 +109,7 @@ public class HistoryActivity extends OverflowMenuNavigator {
                         Gson gson = new Gson();
                         GsrData gsrDataList = gson.fromJson(cleaned, GsrData.class);
                         gsrData = gsrDataList.getGsrSensorTable();
-                        List<Float> gsrAverages = processData();
+                        processData();
                         runOnUiThread(new Thread(new Runnable() {
                             public void run() {
                                 rangeSlider.setEnabled(true);
@@ -130,7 +130,7 @@ public class HistoryActivity extends OverflowMenuNavigator {
 
     }
 
-    public List<Float> processData() {
+    public void processData() {
         for (GsrDataGsrSensorTableItem datapoint : gsrData) {
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSSSSS");
@@ -142,16 +142,6 @@ public class HistoryActivity extends OverflowMenuNavigator {
             }
         }
         simpleGsrData.sort((o1,o2) -> o1.getTimestamp().compareTo(o2.getTimestamp()));
-        List<Float> gsrAverages = new ArrayList<>();
-        for (int i = 0; i < simpleGsrData.size()-20; i+=20) {
-            float sum = 0;
-            for (int j = 0; j < 20; j++) {
-                sum += simpleGsrData.get(i+j).getGsr();
-            }
-            Float avg = sum / (float)20;
-            gsrAverages.add(avg);
-        }
-        return gsrAverages;
     }
 
     public void initGraph(GraphView graph, int start, int end) {
@@ -167,8 +157,6 @@ public class HistoryActivity extends OverflowMenuNavigator {
         series.setDrawDataPoints(true);
         graph.addSeries(series);
 //        series.setTitle("GSR Value");
-//        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getApplicationContext()));
-//
         graph.getViewport().setYAxisBoundsManual(false);
         graph.getLegendRenderer().setVisible(false);
 
@@ -177,8 +165,6 @@ public class HistoryActivity extends OverflowMenuNavigator {
         graph.getViewport().setMaxX(Math.min(11, numDataPoints));
         graph.getViewport().setScrollable(true);
         graph.getGridLabelRenderer().setVerticalAxisTitle("GSR Value");
-//        graph.getGridLabelRenderer().setHumanRounding(false);
-//
     }
 
     @Override
