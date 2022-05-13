@@ -40,7 +40,7 @@ def main():
 
                 print(sensor.GSR)
                 client.sendall(bytes(str(sensor.GSR), 'utf8'))
-                time.sleep(.3)
+                time.sleep(1)
                 client.close()
         except Exception as e:
             print("Closing socket reason ", e)
