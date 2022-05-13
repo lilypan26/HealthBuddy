@@ -67,7 +67,7 @@ public class HistoryActivity extends OverflowMenuNavigator {
 
 
         rangeSlider = findViewById(R.id.range_slider);
-        rangeSlider.setClickable(false);
+        rangeSlider.setEnabled(false);
         rangeSlider.setLabelFormatter(new LabelFormatter() {
             @Override
             public String getFormattedValue(float value) {
@@ -79,12 +79,14 @@ public class HistoryActivity extends OverflowMenuNavigator {
             @Override
             public void onStartTrackingTouch(@NonNull RangeSlider slider) {
                 List<Float> values = slider.getValues();
+                graph.removeAllSeries();
             }
 
             @SuppressLint("RestrictedApi")
             @Override
             public void onStopTrackingTouch(@NonNull RangeSlider slider) {
                 List<Float> values = slider.getValues();
+                initGraph(graph, Math.round(values.get(0)), Math.round(values.get(1)));
             }
         });
 
@@ -110,7 +112,7 @@ public class HistoryActivity extends OverflowMenuNavigator {
                         List<Float> gsrAverages = processData();
                         runOnUiThread(new Thread(new Runnable() {
                             public void run() {
-                                initGraph(graph, gsrAverages);
+                                rangeSlider.setEnabled(true);
 
                             }
                         }));
@@ -152,12 +154,10 @@ public class HistoryActivity extends OverflowMenuNavigator {
         return gsrAverages;
     }
 
-    public void initGraph(GraphView graph, List<Float> gsrAverages) {
+    public void initGraph(GraphView graph, int start, int end) {
         ArrayList<DataPoint> dataPoints = new ArrayList<>();
-        int i = 0;
-        for (float avg : gsrAverages) {
-            dataPoints.add(new DataPoint(i, avg));
-            i++;
+        for (int i = start; i < end; i++) {
+            dataPoints.add(new DataPoint(i, simpleGsrData.get(i).getGsr()));
         }
         DataPoint[] arr = new DataPoint[dataPoints.size()];
         arr = dataPoints.toArray(arr);
