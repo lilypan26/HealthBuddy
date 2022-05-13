@@ -10,6 +10,16 @@
 
     <include layout="@layout/custom_toolbar"/>
 
+    <com.google.android.material.slider.RangeSlider
+        android:id="@+id/range_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        app:values="@array/rangeSliderValues"
+        android:valueFrom="0.0"
+        android:valueTo="999.0"
+        android:stepSize="1.0"/>
+
     <EditText
         android:id="@+id/prompt"
         android:layout_width="350dp"
@@ -33,20 +43,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="300dp"
         android:gravity="center"/>
-
-    <Button
-        android:id="@+id/refresh"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
-        android:background="@color/blue_700"
-        android:backgroundTint="@color/blue_700"
-        android:text="Refresh"
-        android:textSize="10sp"
-        android:textAlignment="center"
-        app:backgroundTint="@null"
-        android:padding="2dp"
-        android:layout_marginTop="260dp"
-        android:layout_marginStart="300dp" />
 
 
 </RelativeLayout>
