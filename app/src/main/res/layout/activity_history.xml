@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/baige"
+    android:layout_gravity="center_horizontal">
+
+
+    <include layout="@layout/custom_toolbar"/>
+
+    <com.google.android.material.slider.RangeSlider
+        android:id="@+id/range_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        app:labelStyle="@style/MyTooltip"
+        app:values="@array/rangeSliderValues"
+        android:valueFrom="0.0"
+        android:valueTo="999.0"
+        android:stepSize="1.0"/>
+
+    <EditText
+        android:id="@+id/prompt"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:background="@null"
+        android:cursorVisible="false"
+        android:ems="10"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:inputType="textMultiLine"
+        android:text="Look back and track your progress!"
+        android:textAlignment="textStart"
+        android:textSize="30sp" />
+
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/graph"
+        android:layout_width="375dp"
+        android:layout_height="220dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="300dp"
+        android:gravity="center"/>
+
+
+</RelativeLayout>

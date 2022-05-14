@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/baige"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/app_name"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:cursorVisible="false"
+        android:ems="10"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="left|center_horizontal"
+        android:inputType="textMultiLine"
+        android:text="Did You Drink Water Today?"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:layout_marginTop="420dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/app_logo"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/drink_water"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+
+
+</RelativeLayout>
