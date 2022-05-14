@@ -9,19 +9,6 @@
 
     <include layout="@layout/custom_toolbar"/>
 
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/toolbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?attr/actionBarSize"-->
-<!--        android:background="?attr/colorPrimary"-->
-<!--        android:elevation="4dp"-->
-<!--        app:menu="@menu/overflow_menu"-->
-<!--        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
-
     <ImageView
         android:id="@+id/logo"
         android:layout_marginTop="80dp"
@@ -58,7 +45,7 @@
         android:ems="8"
         android:fontFamily="sans-serif-condensed-medium"
         android:inputType="textMultiLine"
-        android:text="Track Your Hydration Levels."
+        android:text="Track Your Health Levels Below."
         android:textAlignment="textStart"
         android:textSize="20sp" />
 
@@ -76,23 +63,70 @@
         android:layout_height="91dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="550dp"
+        android:layout_marginTop="530dp"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:text="@string/gsr_value"
         android:textSize="24sp" />
 
+    <TextView
+        android:id="@+id/dehydration_text"
+        android:layout_width="match_parent"
+        android:layout_height="91dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="570dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/dehydration_text"
+        android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/notify"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="650dp"
-        android:background="@color/purple_200"
-        android:backgroundTint="@color/blue_700"
-        app:backgroundTint="@null"
-        android:text="Test Notification" />
+    <TextView
+        android:id="@+id/hunger_text"
+        android:layout_width="match_parent"
+        android:layout_height="91dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="600dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/hunger_text"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/mood_text"
+        android:layout_width="match_parent"
+        android:layout_height="91dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="630dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/mood_text"
+        android:textSize="24sp" />
+
+
+<!--    <Button-->
+<!--        android:id="@+id/notify"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginStart="30dp"-->
+<!--        android:layout_marginTop="650dp"-->
+<!--        android:background="@color/purple_200"-->
+<!--        android:backgroundTint="@color/blue_700"-->
+<!--        app:backgroundTint="@null"-->
+<!--        android:text="Notify" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/aws"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginStart="200dp"-->
+<!--        android:layout_marginTop="650dp"-->
+<!--        android:background="@color/purple_200"-->
+<!--        android:backgroundTint="@color/blue_700"-->
+<!--        app:backgroundTint="@null"-->
+<!--        android:text="AWS" />-->
 
 
 </RelativeLayout>

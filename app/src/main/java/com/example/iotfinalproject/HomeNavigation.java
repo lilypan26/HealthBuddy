@@ -26,9 +26,5 @@ public class HomeNavigation {
                 activity.startActivity(intent);
             }
         });
-        // Get a support ActionBar corresponding to this toolbar
-        ActionBar ab = activity.getSupportActionBar();
-        // Enable the Up button
-        ab.setDisplayHomeAsUpEnabled(true);
     }
 }
