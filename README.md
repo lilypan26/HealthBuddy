@@ -2,8 +2,8 @@
 Hi! Welcome to HealthBuddy! This is an android app with the goal of helping you better understand your lifestyle and encouraging you to take the appropriate actions for a healthier and happier life. The HealthBuddy will track your GSR values to help determine your stress, hydration, and hunger levels and notify you if you should drink water or take a break. We can sometimes forget to take care of our health, both mentally and physically, but don't worry the HealthBuddy is here to help!
 
 ## App Preview
-![User Home Page](HealthBuddy_Home.png)  ![Sample Notification](HealthBuddy_Notification.png) 
-![Lookback Range Slider](HealthBuddy_Slider.png) ![Historical Data Graph](HealthBuddy_History.png) 
+![User Home Page](/images/HealthBuddy_Home.png)  ![Sample Notification](/images/HealthBuddy_Notification.png) <br />
+![Lookback Range Slider](/images/HealthBuddy_Slider.png) ![Historical Data Graph](/images/HealthBuddy_History.png) 
 
 ## Setup Instructions for the Grove sensor
 
